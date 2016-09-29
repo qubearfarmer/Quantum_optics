@@ -20,9 +20,10 @@ def qubit_Rabi(wa, wr, psi0, g, gamma1, tlist, solver):
     return output. expect[0], output.expect[1], output.expect[2]
 
 wa = 10
+
 wr = 10
 g = 2
-gamma1 = 2
+gamma1 = 0
 psi0 = basis(2,0)
 time = np.linspace(0,20,1000)
 sx, sy, sz = qubit_Rabi(wr, wa, psi0, g, gamma1, time, "me")
