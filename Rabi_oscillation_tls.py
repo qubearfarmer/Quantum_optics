@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from qutip import *
-
+#'''
 def qubit_Rabi(wa, wr, psi0, g, gamma1, tlist, solver):
-    H = (wa-wr)*sigmaz() - g*sigmax()
+    H = (wa-wr)*sigmaz() - 1j*g*sigmay()
     c_ops = []
     if gamma1 > 0.0:
         c_ops.append(np.sqrt(gamma1)*sigmam())
@@ -21,7 +21,7 @@ def qubit_Rabi(wa, wr, psi0, g, gamma1, tlist, solver):
 
 wa = 10
 wr = 10
-g = 2
+g = 1
 gamma1 = 0
 psi0 = basis(2,0)
 time = np.linspace(0,20,1000)
@@ -34,4 +34,6 @@ arVec = [sx[idx],sy[idx],sz[idx]]
 bSphere.add_vectors(arVec)
 bSphere.add_points([sx,sy,sz])
 bSphere.make_sphere()
-plt.show()
+# plt.show()
+
+print sigmay()
