@@ -54,8 +54,8 @@ def dress_state(wa, wr, g):
     return E0, E1
 wa = 10
 wr = 8
-g = 1
-gamma1 = 0.0
+g = 5
+gamma1 = 0.5
 psi0 = basis(2,0)
 time = np.linspace(0,10,1000)
 sx, sy, sz = qubit_Rabi(wr, wa, psi0, g, gamma1, time, "me")
@@ -69,29 +69,29 @@ sx, sy, sz = qubit_Rabi(wr, wa, psi0, g, gamma1, time, "me")
 # bSphere.make_sphere()
 
 
-# pop_a_0, pop_a_1 = tls_analytical(wr,wa,g,1,0,time)
-# pop_0, pop_1 = tls_Rabi(wr, wa, psi0, g, gamma1, time, "me")
-# plt.plot(time, pop_0, linewidth = '2', linestyle = '-', color = 'blue')
+pop_a_0, pop_a_1 = tls_analytical(wr,wa,g,1,0,time)
+pop_0, pop_1 = tls_Rabi(wr, wa, psi0, g, gamma1, time, "me")
+plt.plot(time, pop_0, linewidth = '2', linestyle = '-', color = 'blue')
 # plt.plot(time, pop_a_1, linewidth = '2', linestyle = '--', color = 'red')
-# plt.ylabel('Probability')
-# plt.xlabel('Time')
-# plt.tick_params(labelsize=18)
+plt.ylabel('Probability')
+plt.xlabel('Time')
+plt.tick_params(labelsize=18)
 
 
-wr_array = np.linspace(1,20,100)
-E0,E1 = dress_state(wa, wr_array, 2)
-plt.plot(wa - wr_array,E0,linewidth = '3', linestyle = '-',color = 'blue')
-plt.plot(wa - wr_array,E1,linewidth = '3', linestyle = '-',color = 'red')
-E0,E1 = dress_state(wa, wr_array, 0)
-plt.plot(wa - wr_array,E0,linewidth = '1', linestyle = '--',color = 'black')
-plt.plot(wa - wr_array,E1,linewidth = '1', linestyle = '--',color = 'black')
+# wr_array = np.linspace(1,20,100)
+# E0,E1 = dress_state(wa, wr_array, 2)
+# plt.plot(wa - wr_array,E0,linewidth = '3', linestyle = '-',color = 'blue')
+# plt.plot(wa - wr_array,E1,linewidth = '3', linestyle = '-',color = 'red')
+# E0,E1 = dress_state(wa, wr_array, 0)
+# plt.plot(wa - wr_array,E0,linewidth = '1', linestyle = '--',color = 'black')
+# plt.plot(wa - wr_array,E1,linewidth = '1', linestyle = '--',color = 'black')
 # plt.tick_params(
 #     axis='y',          # changes apply to the x-axis
 #     which='both',      # both major and minor ticks are affected
 #     bottom='off',      # ticks along the bottom edge are off
 #     top='off',         # ticks along the top edge are off
 #     labelbottom='off') # labels along the bottom edge are off
-plt.axis('off')
+# plt.axis('off')
 # plt.tick_params(
 #     axis='y',          # changes apply to the x-axis
 #     which='both',      # both major and minor ticks are affected
