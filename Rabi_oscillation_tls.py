@@ -6,7 +6,7 @@ def qubit_Rabi(wa, wr, psi0, g, gamma1, tlist, solver):
     H = -(wa-wr)/2.0*sigmaz() + g/2.0*(sigmay())
     c_ops = []
     if gamma1 > 0.0:
-        c_ops.append(np.sqrt(gamma1)*sigmam())
+        c_ops.append(np.sqrt(gamma1)*sigmaz())
     q_ops = [sigmax(),sigmay(),sigmaz()]
     if solver == "me":
         output = mesolve(H, psi0, tlist, c_ops, q_ops)
@@ -53,29 +53,29 @@ def dress_state(wa, wr, g):
     E1 = 0.5 * (delta + omega)
     return E0, E1
 wa = 10
-wr = 8
-g = 5
-gamma1 = 0.5
+wr = 10
+g = 2
+gamma1 = 0.2
 psi0 = basis(2,0)
 time = np.linspace(0,10,1000)
 sx, sy, sz = qubit_Rabi(wr, wa, psi0, g, gamma1, time, "me")
-# bSphere = Bloch()
-# theta = np.pi/4.0
-# phi= np.pi/2.0
-# idx = int(len(time)-1)
-# arVec = [sx[idx],sy[idx],sz[idx]]
-# bSphere.add_vectors(arVec)
-# bSphere.add_points([sx,sy,sz])
-# bSphere.make_sphere()
+bSphere = Bloch()
+theta = np.pi/4.0
+phi= np.pi/2.0
+idx = int(len(time)-1)
+arVec = [sx[idx],sy[idx],sz[idx]]
+bSphere.add_vectors(arVec)
+bSphere.add_points([sx,sy,sz])
+bSphere.make_sphere()
 
 
-pop_a_0, pop_a_1 = tls_analytical(wr,wa,g,1,0,time)
-pop_0, pop_1 = tls_Rabi(wr, wa, psi0, g, gamma1, time, "me")
-plt.plot(time, pop_0, linewidth = '2', linestyle = '-', color = 'blue')
-# plt.plot(time, pop_a_1, linewidth = '2', linestyle = '--', color = 'red')
-plt.ylabel('Probability')
-plt.xlabel('Time')
-plt.tick_params(labelsize=18)
+# pop_a_0, pop_a_1 = tls_analytical(wr,wa,g,1,0,time)
+# pop_0, pop_1 = tls_Rabi(wr, wa, psi0, g, gamma1, time, "me")
+# plt.plot(time, pop_0, linewidth = '2', linestyle = '-', color = 'blue')
+# # plt.plot(time, pop_a_1, linewidth = '2', linestyle = '--', color = 'red')
+# plt.ylabel('Probability')
+# plt.xlabel('Time')
+# plt.tick_params(labelsize=18)
 
 
 # wr_array = np.linspace(1,20,100)
