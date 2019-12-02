@@ -43,7 +43,7 @@ rho1_recostructed = 0.5*(avgI*qeye(2) + avgX*sigmax() + avgY*sigmay() + avgZ*sig
 rho = tensor(rho1,rho2)
 #Bell state
 rho = cphase(np.pi)*rho*cphase(np.pi).dag()
-piOver2onA = tensor(rx(np.pi/1.9),qeye(2))
+piOver2onA = tensor(rx(np.pi/2),qeye(2))
 rho = piOver2onA * rho * piOver2onA.dag()
 #ideal measurement
 rho_measure = 0.25*(tensor(qeye(2),qeye(2))
