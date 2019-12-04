@@ -101,98 +101,119 @@ betaII = (np.random.randint(1,1000) + 1j*np.random.randint(1,1000))*1e-6
 betaIZ = (np.random.randint(1,1000) + 1j*np.random.randint(1,1000))*1e-6
 betaZI = (np.random.randint(1,1000) + 1j*np.random.randint(1,1000))*1e-6
 betaZZ = (np.random.randint(1,1000) + 1j*np.random.randint(1,1000))*1e-6
-betaII = 1
-betaIZ = 1
-betaZI = 1
-betaZZ = 1
-MII = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmaz(), qeye(2)) + betaZZ*tensor(sigmaz(), sigmaz()))
-MIX = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmay()) + betaZI*tensor(sigmaz(), qeye(2)) + betaZZ*tensor(sigmaz(), sigmay()))
-MIY = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmax()) + betaZI*tensor(sigmaz(), qeye(2)) + betaZZ*tensor(sigmaz(), sigmax()))
-MIZ = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmaz(), qeye(2)) - betaZZ*tensor(sigmaz(), sigmaz()))
-
-MXI = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmay(), qeye(2)) + betaZZ*tensor(sigmay(), sigmaz()))
-MXX = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmay()) + betaZI*tensor(sigmay(), qeye(2)) + betaZZ*tensor(sigmay(), sigmay()))
-MXY = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmax()) + betaZI*tensor(sigmay(), qeye(2)) + betaZZ*tensor(sigmay(), sigmax()))
-MXZ = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmay(), qeye(2)) - betaZZ*tensor(sigmay(), sigmaz()))
-
-MYI = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmax(), qeye(2)) + betaZZ*tensor(sigmax(), sigmaz()))
-MYX = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmay()) + betaZI*tensor(sigmax(), qeye(2)) + betaZZ*tensor(sigmax(), sigmay()))
-MYY = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmax()) + betaZI*tensor(sigmax(), qeye(2)) + betaZZ*tensor(sigmax(), sigmax()))
-MYZ = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmax(), qeye(2)) - betaZZ*tensor(sigmax(), sigmaz()))
-
-MZI = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmaz()) - betaZI*tensor(sigmaz(), qeye(2)) - betaZZ*tensor(sigmaz(), sigmaz()))
-MZX = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmay()) - betaZI*tensor(sigmaz(), qeye(2)) - betaZZ*tensor(sigmaz(), sigmay()))
-MZY = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmax()) - betaZI*tensor(sigmaz(), qeye(2)) - betaZZ*tensor(sigmaz(), sigmax()))
-MZZ = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmaz()) - betaZI*tensor(sigmaz(), qeye(2)) + betaZZ*tensor(sigmaz(), sigmaz()))
+# betaII = 1
+# betaIZ = 1
+# betaZI = 1
+# betaZZ = 1
+# gate_sequence = np.array(['I-I', 'I-X2p', 'I-Y2m', 'I-Xp', 'X2p-I', 'X2p-X2p', 'X2p-Y2m', 'X2p-Xp', \
+#                           'Y2m-I', 'Y2m-X2p', 'Y2m-Y2m', 'Y2m-Xp', 'Xp-I', 'Xp-X2p', 'Xp-Y2m'])
+# MII = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmaz(), qeye(2)) + betaZZ*tensor(sigmaz(), sigmaz()))
+# MIX = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmay()) + betaZI*tensor(sigmaz(), qeye(2)) + betaZZ*tensor(sigmaz(), sigmay()))
+# MIY = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmax()) + betaZI*tensor(sigmaz(), qeye(2)) + betaZZ*tensor(sigmaz(), sigmax()))
+# MIZ = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmaz(), qeye(2)) - betaZZ*tensor(sigmaz(), sigmaz()))
+# MXI = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmay(), qeye(2)) + betaZZ*tensor(sigmay(), sigmaz()))
+# MXX = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmay()) + betaZI*tensor(sigmay(), qeye(2)) + betaZZ*tensor(sigmay(), sigmay()))
+# MXY = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmax()) + betaZI*tensor(sigmay(), qeye(2)) + betaZZ*tensor(sigmay(), sigmax()))
+# MXZ = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmay(), qeye(2)) - betaZZ*tensor(sigmay(), sigmaz()))
+# MYI = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmax(), qeye(2)) + betaZZ*tensor(sigmax(), sigmaz()))
+# MYX = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmay()) + betaZI*tensor(sigmax(), qeye(2)) + betaZZ*tensor(sigmax(), sigmay()))
+# MYY = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmax()) + betaZI*tensor(sigmax(), qeye(2)) + betaZZ*tensor(sigmax(), sigmax()))
+# MYZ = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmax(), qeye(2)) - betaZZ*tensor(sigmax(), sigmaz()))
+# MZI = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmaz()) - betaZI*tensor(sigmaz(), qeye(2)) - betaZZ*tensor(sigmaz(), sigmaz()))
+# MZX = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmay()) - betaZI*tensor(sigmaz(), qeye(2)) - betaZZ*tensor(sigmaz(), sigmay()))
+# MZY = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmax()) - betaZI*tensor(sigmaz(), qeye(2)) - betaZZ*tensor(sigmaz(), sigmax()))
+# MZZ = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmaz()) - betaZI*tensor(sigmaz(), qeye(2)) + betaZZ*tensor(sigmaz(), sigmaz()))
 # #In experiments, mij is determined via dispersive measurements.
-mII = expect(MII,rho) #Measurement in ground state
-mIX = expect(MIX,rho) #measurement after doing nothing on qubit A and X pi/2 pulse on qubit B
-mIY = expect(MIY,rho) #measurement after doing nothing on qubit A and Y -pi/2 pulse on qubit B
-mIZ = expect(MIZ,rho) #measurement after flipping the state of qubit B
-mXI = expect(MXI,rho) #measurement after doing X pi/2 pulse on qubit A and nothing on qubit B
-mXX = expect(MXX,rho) #measurement after doing X pi/2 pulse on qubit A and X pi/2 pulse on qubit B
-mXY = expect(MXY,rho) #measurement after doing X pi/2 pulse on qubit A and Y -pi/2 pulse on qubit B
-mXZ = expect(MXZ,rho) #measurement after doing X pi/2 pulse on qubit A and flipping the state of qubit B
-mYI = expect(MYI,rho) #measurement after doing Y -pi/2 pulse on qubit A and nothing on qubit B
-mYX = expect(MYX,rho) #measurement after doing Y -pi/2 pulse on qubit A and X pi/2 pulse on qubit B
-mYY = expect(MYY,rho) #measurement after doing Y -pi/2 pulse on qubit A and Y -pi/2 pulse on qubit B
-mYZ = expect(MYZ,rho) #measurement after doing Y -pi/2 pulse on qubit A and flipping the state of qubit B
-mZI = expect(MZI,rho) #measurement after flipping the state of qubit A and nothing on qubit B
-mZX = expect(MZX,rho) #measurement after flipping the state of qubit A and X pi/2 pulse on qubit B
-mZY = expect(MZY,rho) #measurement after flipping the state of qubit A and Y -pi/2 pulse on qubit B
-mZZ = expect(MZZ,rho) #measurement after flipping the state of qubit A and flipping the state of qubit B
+# mII = expect(MII,rho) #Measurement in ground state
+# mIX = expect(MIX,rho) #measurement after doing nothing on qubit A and X pi/2 pulse on qubit B
+# mIY = expect(MIY,rho) #measurement after doing nothing on qubit A and Y -pi/2 pulse on qubit B
+# mIZ = expect(MIZ,rho) #measurement after flipping the state of qubit B
+# mXI = expect(MXI,rho) #measurement after doing X pi/2 pulse on qubit A and nothing on qubit B
+# mXX = expect(MXX,rho) #measurement after doing X pi/2 pulse on qubit A and X pi/2 pulse on qubit B
+# mXY = expect(MXY,rho) #measurement after doing X pi/2 pulse on qubit A and Y -pi/2 pulse on qubit B
+# mXZ = expect(MXZ,rho) #measurement after doing X pi/2 pulse on qubit A and flipping the state of qubit B
+# mYI = expect(MYI,rho) #measurement after doing Y -pi/2 pulse on qubit A and nothing on qubit B
+# mYX = expect(MYX,rho) #measurement after doing Y -pi/2 pulse on qubit A and X pi/2 pulse on qubit B
+# mYY = expect(MYY,rho) #measurement after doing Y -pi/2 pulse on qubit A and Y -pi/2 pulse on qubit B
+# mYZ = expect(MYZ,rho) #measurement after doing Y -pi/2 pulse on qubit A and flipping the state of qubit B
+# mZI = expect(MZI,rho) #measurement after flipping the state of qubit A and nothing on qubit B
+# mZX = expect(MZX,rho) #measurement after flipping the state of qubit A and X pi/2 pulse on qubit B
+# mZY = expect(MZY,rho) #measurement after flipping the state of qubit A and Y -pi/2 pulse on qubit B
+# mZZ = expect(MZZ,rho) #measurement after flipping the state of qubit A and flipping the state of qubit B
 # #write the matrix in order II, IX, IY, IZ, XI, XX, XY, XZ, YI, YX, YY, YZ, ZI, ZX, ZY, ZZ
 # #mij = matrix dot avg
-gate_sequence = np.array(['I-I', 'I-X2p', 'I-Y2m', 'I-Xp', 'X2p-I', 'X2p-X2p', 'X2p-Y2m', 'X2p-Xp', \
-                          'Y2m-I', 'Y2m-X2p', 'Y2m-Y2m', 'Y2m-Xp', 'Xp-I', 'Xp-X2p', 'Xp-Y2m', 'Xp-Xp'])
-measurement_matrix_test = 0.25*np.array([[betaII, 0, 0, betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, betaZI, 0, 0, betaZZ], #mII
-                              [betaII, 0, betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, 0, betaZI, 0, betaZZ, 0], #mIX
-                              [betaII, betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, betaZI, betaZZ, 0, 0], #mIY
-                              [betaII, 0, 0, -betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, betaZI, 0, 0, -betaZZ], #mIZ
-                              [betaII, 0, 0, betaIZ, 0, 0, 0, 0, betaZI, 0, 0, betaZZ, 0, 0, 0, 0], #mXI
-                              [betaII, 0, betaIZ, 0, 0, 0, 0, 0, betaZI, 0, betaZZ, 0, 0, 0, 0, 0], #mXX
-                              [betaII, betaIZ, 0, 0, 0, 0, 0, 0, betaZI, betaZZ, 0, 0, 0, 0, 0, 0], #mXY
-                              [betaII, 0, 0, -betaIZ, 0, 0, 0, 0, betaZI, 0, 0, -betaZZ, 0, 0, 0, 0], #mXZ
-                              [betaII, 0, 0, betaIZ, betaZI, 0, 0, betaZZ, 0, 0, 0, 0, 0, 0, 0, 0], #mYI
-                              [betaII, 0, betaIZ, 0, betaZI, 0, betaZZ, 0, 0, 0, 0, 0, 0, 0, 0, 0], #mYX
-                              [betaII, betaIZ, 0, 0, betaZI, betaZZ, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], #mYY
-                              [betaII, 0, 0, -betaIZ, betaZI, 0, 0, -betaZZ, 0, 0, 0, 0, 0, 0, 0, 0], #mYZ
-                              [betaII, 0, 0, betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, -betaZI, 0, 0, -betaZZ], #mZI
-                              [betaII, 0, betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, 0, -betaZI, 0, -betaZZ, 0], #mZX
-                              [betaII, betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -betaZI, -betaZZ, 0, 0], #mZY
-                              [betaII, 0, 0, -betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, -betaZI, 0, 0, betaZZ]]) #mZZ
 
-# gate_sequence_labber = np.array(['I-I',\
-#                           'Xp-I',\
-#                           'I-Xp',\
-#                           'X2p-I',\
-#                           'X2p-X2p',\
-#                           'X2p-Y2p',\
-#                           'X2p-Xp',\
-#                           'Y2p-I',\
-#                           'Y2p-X2p',\
-#                           'Y2p-Y2p',\
-#                           'Y2p-Xp',\
-#                           'I-X2p',\
-#                           'Xp-X2p',\
-#                           'I-Y2p',\
-#                           'Xp-Y2p',\
-#                           'I-I',\
-#                           'Xm-I',\
-#                           'I-Xm',\
-#                           'X2m-I',\
-#                           'X2m-X2m',\
-#                           'X2m-Y2m',\
-#                           'X2m-Xm',\
-#                           'Y2m-I',\
-#                           'Y2m-X2m',\
-#                           'Y2m-Y2m',\
-#                           'Y2m-Xm',\
-#                           'I-X2m',\
-#                           'Xm-X2m',\
-#                           'I-Y2m',\
-#                           'Xm-Y2m'])
-measurement_matrix = np.empty((len(gate_sequence), 16), dtype=complex)
+# measurement_matrix_test = 0.25*np.array([[0, 0, betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, betaZI, 0, 0, betaZZ], #mII
+#                               [0, betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, 0, betaZI, 0, betaZZ, 0], #mIX
+#                               [betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, betaZI, betaZZ, 0, 0], #mIY
+#                               [0, 0, -betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, betaZI, 0, 0, -betaZZ], #mIZ
+#                               [0, 0, betaIZ, 0, 0, 0, 0, betaZI, 0, 0, betaZZ, 0, 0, 0, 0], #mXI
+#                               [0, betaIZ, 0, 0, 0, 0, 0, betaZI, 0, betaZZ, 0, 0, 0, 0, 0], #mXX
+#                               [betaIZ, 0, 0, 0, 0, 0, 0, betaZI, betaZZ, 0, 0, 0, 0, 0, 0], #mXY
+#                               [0, 0, -betaIZ, 0, 0, 0, 0, betaZI, 0, 0, -betaZZ, 0, 0, 0, 0], #mXZ
+#                               [0, 0, betaIZ, betaZI, 0, 0, betaZZ, 0, 0, 0, 0, 0, 0, 0, 0], #mYI
+#                               [0, betaIZ, 0, betaZI, 0, betaZZ, 0, 0, 0, 0, 0, 0, 0, 0, 0], #mYX
+#                               [betaIZ, 0, 0, betaZI, betaZZ, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], #mYY
+#                               [0, 0, -betaIZ, betaZI, 0, 0, -betaZZ, 0, 0, 0, 0, 0, 0, 0, 0], #mYZ
+#                               [0, 0, betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, -betaZI, 0, 0, -betaZZ], #mZI
+#                               [0, betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, 0, -betaZI, 0, -betaZZ, 0], #mZX
+#                               [betaIZ, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -betaZI, -betaZZ, 0, 0]])#mZY
+#Labber
+gate_sequence = np.array(['I-I','Xp-I','I-Xp',\
+                          'X2p-I','X2p-X2p','X2p-Y2p','X2p-Xp',\
+                          'Y2p-I','Y2p-X2p','Y2p-Y2p','Y2p-Xp',\
+                          'I-X2p','Xp-X2p','I-Y2p','Xp-Y2p'])
+# 'I-I',
+# 'Xm-I',\
+# 'I-Xm',\
+# 'X2m-I',\
+# 'X2m-X2m',\
+# 'X2m-Y2m',\
+# 'X2m-Xm',\
+# 'Y2m-I',\
+# 'Y2m-X2m',\
+# 'Y2m-Y2m',\
+# 'Y2m-Xm',\
+# 'I-X2m',\
+# 'Xm-X2m',\
+# 'I-Y2m',\
+# 'Xm-Y2m'])
+M0 = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmaz(), qeye(2)) + betaZZ*tensor(sigmaz(), sigmaz()))
+M1 = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmaz()) - betaZI*tensor(sigmaz(), qeye(2)) - betaZZ*tensor(sigmaz(), sigmaz()))
+M2 = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmaz(), qeye(2)) - betaZZ*tensor(sigmaz(), sigmaz()))
+
+M3 = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmay(), qeye(2)) + betaZZ*tensor(sigmay(), sigmaz()))
+M4 = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmay()) + betaZI*tensor(sigmay(), qeye(2)) + betaZZ*tensor(sigmay(), sigmay()))
+M5 = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmax()) + betaZI*tensor(sigmay(), qeye(2)) - betaZZ*tensor(sigmay(), sigmax()))
+M6 = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmaz()) + betaZI*tensor(sigmay(), qeye(2)) - betaZZ*tensor(sigmay(), sigmaz()))
+
+M7 = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmaz()) - betaZI*tensor(sigmax(), qeye(2)) - betaZZ*tensor(sigmax(), sigmaz()))
+M8 = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmay()) - betaZI*tensor(sigmax(), qeye(2)) - betaZZ*tensor(sigmax(), sigmay()))
+M9 = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmax()) - betaZI*tensor(sigmax(), qeye(2)) + betaZZ*tensor(sigmax(), sigmax()))
+M10 = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmaz()) - betaZI*tensor(sigmax(), qeye(2)) + betaZZ*tensor(sigmax(), sigmaz()))
+
+M11 = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmay()) + betaZI*tensor(sigmaz(), qeye(2)) + betaZZ*tensor(sigmaz(), sigmay()))
+M12 = 0.25*(betaII*tensor(qeye(2), qeye(2)) + betaIZ*tensor(qeye(2), sigmay()) - betaZI*tensor(sigmaz(), qeye(2)) - betaZZ*tensor(sigmaz(), sigmay()))
+M13 = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmax()) + betaZI*tensor(sigmaz(), qeye(2)) - betaZZ*tensor(sigmaz(), sigmax()))
+M14 = 0.25*(betaII*tensor(qeye(2), qeye(2)) - betaIZ*tensor(qeye(2), sigmax()) - betaZI*tensor(sigmaz(), qeye(2)) + betaZZ*tensor(sigmaz(), sigmax()))
+
+m1 = expect(M1,rho)
+m2 = expect(M2,rho)
+m3 = expect(M3,rho)
+m4 = expect(M4,rho)
+m5 = expect(M5,rho)
+m6 = expect(M6,rho)
+m7 = expect(M7,rho)
+m8 = expect(M8,rho)
+m9 = expect(M9,rho)
+m10 = expect(M10,rho)
+m11 = expect(M11,rho)
+m12 = expect(M12,rho)
+m13 = expect(M13,rho)
+m14 = expect(M14,rho)
+m0 = expect(M0,rho)
+
+measurement_matrix = np.empty((len(gate_sequence), 15), dtype=complex)
 gate_matrix = np.zeros((4, 4), dtype = complex)
 gate_matrix[0,0] = betaII
 for idx, gate in enumerate(gate_sequence):
@@ -240,22 +261,36 @@ for idx, gate in enumerate(gate_sequence):
     gate_matrix[row_index, 0] = sign1*betaZI
     gate_matrix[row_index, column_index] = sign1 * sign2 * betaZZ
     gate_matrix[0, 0] = betaII
-    for idy in range(4):
-        measurement_matrix[idx, 4*idy:4*(idy+1)] = 0.25*gate_matrix[idy, :]
+    measurement_matrix[idx, 0:3] = 0.25*gate_matrix[0, 1:]
+    measurement_matrix[idx, 3:7] = 0.25*gate_matrix[1, :]
+    measurement_matrix[idx, 7:11] = 0.25*gate_matrix[2, :]
+    measurement_matrix[idx, 11:15] = 0.25*gate_matrix[3, :]
+
 
     # print (gate1, gate2, row_index, column_index, sign1, sign2)
     # print (measurement_matrix[idx,:] - measurement_matrix_test[idx,:])
 
-avgII, avgIX, avgIY, avgIZ, \
+# avgIX, avgIY, avgIZ, \
+# avgXI, avgXX, avgXY, avgXZ, \
+# avgYI, avgYX, avgYY, avgYZ, \
+# avgZI, avgZX, avgZY, avgZZ \
+#     = np.linalg.inv(measurement_matrix).dot(np.array([
+#     mII, mIX, mIY, mIZ,
+#     mXI, mXX, mXY, mXZ,
+#     mYI, mYX, mYY, mYZ,
+#     mZI, mZX, mZY]).transpose()-0.25*betaII).transpose()
+avgIX, avgIY, avgIZ, \
 avgXI, avgXX, avgXY, avgXZ, \
 avgYI, avgYX, avgYY, avgYZ, \
 avgZI, avgZX, avgZY, avgZZ \
-    = np.linalg.inv(measurement_matrix).dot(np.array([
-    mII, mIX, mIY, mIZ,
-    mXI, mXX, mXY, mXZ,
-    mYI, mYX, mYY, mYZ,
-    mZI, mZX, mZY, mZZ]).transpose()).transpose()
-rho_reconstructed = 0.25*(avgII*tensor(qeye(2), qeye(2)) + avgIX*tensor(qeye(2), sigmax()) + avgIY*tensor(qeye(2), sigmay()) + avgIZ*tensor(qeye(2), sigmaz()) +
+    = np.linalg.inv(measurement_matrix).dot(np.array([  
+    m0, m1, m2, m3,
+    m4, m5, m6, m7,
+    m8, m9, m10, m11,
+    m12, m13, m14]).transpose()-0.25*betaII).transpose()
+
+
+rho_reconstructed = 0.25*(tensor(qeye(2), qeye(2)) + avgIX*tensor(qeye(2), sigmax()) + avgIY*tensor(qeye(2), sigmay()) + avgIZ*tensor(qeye(2), sigmaz()) +
                           avgXI*tensor(sigmax(), qeye(2)) + avgXX*tensor(sigmax(), sigmax()) + avgXY*tensor(sigmax(), sigmay()) + avgXZ*tensor(sigmax(), sigmaz()) +
                           avgYI*tensor(sigmay(), qeye(2)) + avgYX*tensor(sigmay(), sigmax()) + avgYY*tensor(sigmay(), sigmay()) + avgYZ*tensor(sigmay(), sigmaz()) +
                           avgZI*tensor(sigmaz(), qeye(2)) + avgZX*tensor(sigmaz(), sigmax()) + avgZY*tensor(sigmaz(), sigmay()) + avgZZ*tensor(sigmaz(), sigmaz()))
