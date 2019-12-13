@@ -4,8 +4,16 @@
 import numpy as np
 from qutip import*
 from matplotlib import pyplot as plt
+from scipy.optimize import minimize
 
-x = np.array([[1,0,0,0], [0,0,0,0], [1,0,0,0], [1,0,0,0]])
+x = np.array([[1,0,0,1], [0,0,0,0], [0,0,0,0], [1,0,0,1]])
+def density_matrix(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15):
+    t16 = 1 - t1 -t2 - t3
+    tau = np.array([[t1, t4+1j*t5, t6+1j*t7, t8+1j*t9], [0, t2, t10+1j*t11, t12+1j*t13], [0, 0, t3, t14+1j*t15], [0,0,0,t16]])
+    rho = np.conj(tau.transpose())*tau / np.trace(np.conj(tau.transpose())*tau)
+    return rho
+
+x = density_matrix(t1=1,t2=0,t3=0,t4=0,t5=0,t6=0,t7=0,t8=0,t9=0,t10=0,t11=0,t12=0,t13=0,t14=0,t15=0)
 #random states
 betaII = (np.random.randint(1,1000) + 1j*np.random.randint(1,1000))*1e-6
 betaZI = (np.random.randint(1,1000) + 1j*np.random.randint(1,1000))*1e-6
@@ -39,38 +47,46 @@ ZY = np.kron(sZ,sY)
 ZZ = np.kron(sZ,sZ)
 
 M = np.zeros((len(gate_sequence), 4, 4), dtype = complex)
-M[0,:,:] = betaII*II - betaZI*ZI - betaIZ*IZ + betaZZ*ZZ
-M[1,:,:] = betaII*II + betaZI*ZI - betaIZ*IZ - betaZZ*ZZ
-M[2,:,:] = betaII*II - betaZI*ZI + betaIZ*IZ - betaZZ*ZZ
+M[0,:,:] = betaII*II + betaZI*ZI + betaIZ*IZ + betaZZ*ZZ
+M[1,:,:] = betaII*II - betaZI*ZI + betaIZ*IZ - betaZZ*ZZ
+M[2,:,:] = betaII*II + betaZI*ZI - betaIZ*IZ - betaZZ*ZZ
 
-M[3,:,:] = betaII*II - betaZI*YI - betaIZ*IZ + betaZZ*YZ
-M[4,:,:] = betaII*II - betaZI*YI - betaIZ*IY + betaZZ*YY
-M[5,:,:] = betaII*II - betaZI*YI + betaIZ*IX - betaZZ*YX
-M[6,:,:] = betaII*II - betaZI*YI + betaIZ*IZ - betaZZ*YZ
+M[3,:,:] = betaII*II + betaZI*YI + betaIZ*IZ + betaZZ*YZ
+M[4,:,:] = betaII*II + betaZI*YI + betaIZ*IY + betaZZ*YY
+M[5,:,:] = betaII*II + betaZI*YI - betaIZ*IX - betaZZ*YX
+M[6,:,:] = betaII*II + betaZI*YI - betaIZ*IZ - betaZZ*YZ
 
-M[7,:,:] = betaII*II + betaZI*XI - betaIZ*IZ - betaZZ*XZ
-M[8,:,:] = betaII*II + betaZI*XI - betaIZ*IY - betaZZ*XY
-M[9,:,:] = betaII*II + betaZI*XI + betaIZ*IX + betaZZ*XX
-M[10,:,:] = betaII*II + betaZI*XI + betaIZ*IZ + betaZZ*XZ
+M[7,:,:] = betaII*II - betaZI*XI + betaIZ*IZ - betaZZ*XZ
+M[8,:,:] = betaII*II - betaZI*XI + betaIZ*IY - betaZZ*XY
+M[9,:,:] = betaII*II - betaZI*XI - betaIZ*IX + betaZZ*XX
+M[10,:,:] = betaII*II - betaZI*XI - betaIZ*IZ + betaZZ*XZ
 
-M[11,:,:] = betaII*II - betaZI*ZI - betaIZ*IY + betaZZ*ZY
-M[12,:,:] = betaII*II + betaZI*ZI - betaIZ*IY - betaZZ*ZY
-M[13,:,:] = betaII*II - betaZI*ZI + betaIZ*IX - betaZZ*ZX
-M[14,:,:] = betaII*II + betaZI*ZI + betaIZ*IX + betaZZ*ZX
+M[11,:,:] = betaII*II + betaZI*ZI + betaIZ*IY + betaZZ*ZY
+M[12,:,:] = betaII*II - betaZI*ZI + betaIZ*IY - betaZZ*ZY
+M[13,:,:] = betaII*II + betaZI*ZI - betaIZ*IX - betaZZ*ZX
+M[14,:,:] = betaII*II - betaZI*ZI - betaIZ*IX + betaZZ*ZX
 
 #check
 m = np.zeros(len(gate_sequence), dtype = complex)
-for idx in range (len(gate_sequence)):
-    m[idx] = np.trace(M[idx,:,:].dot(x))
-
 epsilon = 0.1
-rho = x*(1-epsilon) + epsilon*np.random.random((4, 4))   #initial guess
+rho = x*(1-epsilon) + epsilon*np.random.random((4, 4))
+for idx in range (len(gate_sequence)):
+    m[idx] = np.trace(M[idx,:,:].dot(rho))
 matrix_histogram_complex(x)
 matrix_histogram_complex(rho)
-dist = 0
-for idx in range (len(gate_sequence)):
-    dist = dist + m[idx] - np.trace(M[idx,:,:].dot(rho))
-plt.show()
+
+def likelihood(x):
+    dist = 0
+    for idx in range(len(gate_sequence)):
+        dist = dist + abs((m[idx] - np.trace(M[idx, :, :].dot(density_matrix(x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7],x[8],x[9],x[10], x[11],x[12],x[13],x[14])))))**2
+    return dist
+guess = np.ones(15)
+guess[0] = 1
+res = minimize(likelihood, guess, method='nelder-mead')
+t = res.x
+rho_reconstructed = density_matrix(*t)
+matrix_histogram_complex(rho_reconstructed)
+# plt.show()
 # measurement_matrix = np.array([[],
 #                                [],
 #                                [],
