@@ -13,7 +13,7 @@ def density_matrix(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15):
     rho = np.conj(tau.transpose())*tau / np.trace(np.conj(tau.transpose())*tau)
     return rho
 
-x = density_matrix(t1=1,t2=0,t3=0,t4=0,t5=0,t6=0,t7=0,t8=0,t9=0,t10=0,t11=0,t12=0,t13=0,t14=0,t15=0)
+# x = density_matrix(t1=1,t2=0,t3=0,t4=0,t5=0,t6=0,t7=0,t8=0,t9=0,t10=0,t11=0,t12=0,t13=0,t14=0,t15=0)
 #random states
 betaII = (np.random.randint(1,1000) + 1j*np.random.randint(1,1000))*1e-6
 betaZI = (np.random.randint(1,1000) + 1j*np.random.randint(1,1000))*1e-6
