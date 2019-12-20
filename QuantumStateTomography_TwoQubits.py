@@ -67,25 +67,27 @@ M[13,:,:] = betaII*II + betaZI*ZI - betaIZ*IX - betaZZ*ZX
 M[14,:,:] = betaII*II - betaZI*ZI - betaIZ*IX + betaZZ*ZX
 
 #check
-m = np.zeros(len(gate_sequence), dtype = complex)
+m = np.zeros(len(gate_sequence), dtype = complex) #measurement
 epsilon = 0.1
 rho = x*(1-epsilon) + epsilon*np.random.random((4, 4))
 for idx in range (len(gate_sequence)):
     m[idx] = np.trace(M[idx,:,:].dot(rho))
+
 matrix_histogram_complex(x)
 matrix_histogram_complex(rho)
 
-def likelihood(x):
-    dist = 0
-    for idx in range(len(gate_sequence)):
-        dist = dist + abs((m[idx] - np.trace(M[idx, :, :].dot(density_matrix(x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7],x[8],x[9],x[10], x[11],x[12],x[13],x[14])))))**2
-    return dist
-guess = np.ones(15)
-guess[0] = 1
-res = minimize(likelihood, guess, method='nelder-mead')
-t = res.x
-rho_reconstructed = density_matrix(*t)
-matrix_histogram_complex(rho_reconstructed)
+# def likelihood(x):
+#     dist = 0
+#     for idx in range(len(gate_sequence)):
+#         dist = dist + abs((m[idx] - np.trace(M[idx, :, :].dot(density_matrix(x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7],x[8],x[9],x[10], x[11],x[12],x[13],x[14])))))**2
+#     return dist
+# guess = np.ones(15)
+# guess[0] = 1
+# res = minimize(likelihood, guess, method='nelder-mead')
+# t = res.x
+# # rho_reconstructed = density_matrix(*t)
+# matrix_histogram_complex(rho_reconstructed)
+plt.show()
 # plt.show()
 # measurement_matrix = np.array([[],
 #                                [],
