@@ -18,20 +18,13 @@ XY = tensor(sigmax(),sigmay())
 YX = tensor(sigmay(),sigmax())
 YY = tensor(sigmay(),sigmay())
 
-# rho = ket2dm(tensor(rx(phi=np.pi/2)*basis(2,0), rx(phi=np.pi/2)*basis(2,0)))
-# matrix_histogram_complex(rho)
-# plt.title('x/2, x/2')
-# rho = ket2dm(cphase(theta=np.pi*0.7)*tensor(rx(phi=np.pi/2)*basis(2,0), rx(phi=np.pi/2)*basis(2,0)))
-# matrix_histogram_complex(rho)
-# plt.title('after CZ')
-rho = ket2dm(IX2*cphase(theta=np.pi)*tensor(rx(phi=np.pi/2)*basis(2,0), rx(phi=np.pi/2)*basis(2,0)))
-# matrix_histogram_complex(rho)
-# plt.title('Bell')
-# rho = ket2dm(IX2*IX*cphase(theta=np.pi)*tensor(rx(phi=np.pi/2)*basis(2,0), rx(phi=np.pi/2)*basis(2,0)))
-# matrix_histogram_complex(rho)
-# plt.title('Bell')
-# print (csign()*tensor(qeye(2),rx(phi=np.pi*2)))
-# plt.show()
-
-
-print (expect(XX,bell_state('10')) - expect(XY,bell_state('10')) + expect(YX,bell_state('10')) + expect(YY,bell_state('10')))
+wA = 2*np.pi*72.4e6
+wB = 2*np.pi*136.3e6
+t=2*0.8e-6
+initial_state = tensor(basis(2,0), basis(2,0))
+# zA = tensor(rz(phi=wA*t),qeye(2))
+zB = tensor(qeye(2), rz(phi=(wB-wA)*t))
+t2 = (2*np.pi - (wB-wA)*t)/(wB-wA)
+zB2 = tensor(qeye(2), rz(phi=(wB-wA)*t2))
+rho = ket2dm(zB2*zB*X2I*XI*csign()*IX2*X2I*initial_state)
+matrix_histogram_complex(rho)
