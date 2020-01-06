@@ -20,11 +20,11 @@ YY = tensor(sigmay(),sigmay())
 
 wA = 2*np.pi*72.4e6
 wB = 2*np.pi*136.3e6
-t=2*0.8e-6
-initial_state = tensor(basis(2,0), basis(2,0))
-# zA = tensor(rz(phi=wA*t),qeye(2))
+t=1*0.8e-6
+initial_state = tensor(basis(2,1), basis(2,1))
+zA = tensor(rz(phi=wA*t),qeye(2))
 zB = tensor(qeye(2), rz(phi=(wB-wA)*t))
 t2 = (2*np.pi - (wB-wA)*t)/(wB-wA)
 zB2 = tensor(qeye(2), rz(phi=(wB-wA)*t2))
-rho = ket2dm(zB2*zB*X2I*XI*csign()*IX2*X2I*initial_state)
+rho = ket2dm(X2I*csign()*IX2*X2I*initial_state)
 matrix_histogram_complex(rho)
