@@ -3,7 +3,7 @@ import numpy as np
 from qutip import *
 #'''
 def qubit_Rabi(wa, wr, psi0, g, gamma1, tlist, solver):
-    H = -(wa-wr)/2.0*sigmaz() + g/2.0*(sigmay())
+    H = -(wa-wr)/2.0*sigmaz() + g/2.0*(sigmax())
     c_ops = []
     if gamma1 > 0.0:
         c_ops.append(np.sqrt(gamma1)*sigmaz())
@@ -17,7 +17,7 @@ def qubit_Rabi(wa, wr, psi0, g, gamma1, tlist, solver):
         output = mcsolve(H, psi0, tlist, ntraj, c_ops, q_ops)
     else:
         raise ValueError("unknown solver")
-    return output. expect[0], output.expect[1], output.expect[2]
+    return output.expect[0], output.expect[1], output.expect[2]
 
 def tls_Rabi(wa, wr, psi0, g, gamma1, tlist, solver):
     state0 = basis(2,0)
@@ -52,22 +52,27 @@ def dress_state(wa, wr, g):
     E0 = 0.5*(delta - omega)
     E1 = 0.5 * (delta + omega)
     return E0, E1
+
+b = Bloch()
 wa = 10
 wr = 10
+delta = wa - wr
 g = 2
-gamma1 = 0.2
+theta = np.arctan(delta/g)
+gamma1 = 0.1
 psi0 = basis(2,0)
 time = np.linspace(0,10,1000)
 sx, sy, sz = qubit_Rabi(wr, wa, psi0, g, gamma1, time, "me")
-bSphere = Bloch()
-theta = np.pi/4.0
-phi= np.pi/2.0
-idx = int(len(time)-1)
-arVec = [sx[idx],sy[idx],sz[idx]]
-bSphere.add_vectors(arVec)
-bSphere.add_points([sx,sy,sz])
-bSphere.make_sphere()
-
+b.add_points([sx,sy,sz], meth='l')
+# b.vector_color = ['b']
+b.add_vectors([sx[-1], sy[-1], sz[-1]])
+b.vector_color = ['b','r']
+b.add_vectors([np.cos(theta), 0, np.sin(theta)])
+b.show()
+# b.make_sphere()
+path = 'C:\\Users\\nguyen89\Google Drive\Research\Illustration\Thesis\Chapter 2\Rabi4.pdf'
+plt.savefig(path, dpi=300)
+plt.show()
 
 # pop_a_0, pop_a_1 = tls_analytical(wr,wa,g,1,0,time)
 # pop_0, pop_1 = tls_Rabi(wr, wa, psi0, g, gamma1, time, "me")
@@ -99,6 +104,6 @@ bSphere.make_sphere()
 #     top='off',         # ticks along the top edge are off
 #     labelbottom='off') # labels along the bottom edge are off
 
-plt.show()
+
 
 # print sigmay()

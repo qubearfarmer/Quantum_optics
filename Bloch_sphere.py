@@ -13,6 +13,7 @@ down = basis(2,1)
 # #
 # sup_state1 = (up+down)/np.sqrt(2)
 # bSphere.add_states(sup_state1)
+# bSphere.vector_color = ['b','r']
 # bSphere.add_annotation((up+down)/np.sqrt(2), text=r"$\frac{|0\rangle + |1\rangle}{\sqrt{2}}$")
 # #
 # sup_state2 = (up-down)/np.sqrt(2)
@@ -35,15 +36,31 @@ down = basis(2,1)
 # plt.savefig(path, dpi=300)
 
 ##################################################################################################
-theta = np.pi/3
-phi = np.pi/3
-arVec = [np.sin(theta)*np.cos(phi), np.sin(theta)*np.sin(phi), np.cos(theta)]
-bSphere.add_vectors(arVec)
-bSphere.add_annotation([np.sin(theta)*np.cos(phi)*1.1, np.sin(theta)*np.sin(phi), np.cos(theta)*1.3], text=r"$|\psi\rangle$")
+# theta = np.pi/3
+# phi = np.pi/3
+# arVec = [np.sin(theta)*np.cos(phi), np.sin(theta)*np.sin(phi), np.cos(theta)]
+# bSphere.add_vectors(arVec)
+# bSphere.add_annotation([np.sin(theta)*np.cos(phi)*1.1, np.sin(theta)*np.sin(phi), np.cos(theta)*1.3], text=r"$|\psi\rangle$")
+# bSphere.sphere_color = '#FFFFFF'
+# bSphere.make_sphere()
+
+#################################################################################################
+sup_state1 = (up+down)/np.sqrt(2)
+bSphere.add_states(sup_state1)
+sup_state2 = rz(phi=0.15)*sup_state1
+bSphere.add_states(sup_state2)
+sup_state2 = rz(phi=0.3)*sup_state1
+bSphere.add_states(sup_state2)
+sup_state2 = rz(phi=-0.15)*sup_state1
+bSphere.add_states(sup_state2)
+sup_state2 = rz(phi=-0.3)*sup_state1
+bSphere.add_states(sup_state2)
+bSphere.vector_color = ['g']
 bSphere.sphere_color = '#FFFFFF'
 bSphere.make_sphere()
 
-path = 'C:\\Users\\nguyen89\Google Drive\Research\Illustration\Thesis\Chapter 2\BlochSphere2.pdf'
+
+path = 'C:\\Users\\nguyen89\Google Drive\Research\Illustration\Thesis\Chapter 2\BlochSphere4.pdf'
 plt.savefig(path, dpi=300)
 
 plt.show()
