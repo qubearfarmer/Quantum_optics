@@ -70,8 +70,8 @@ b.vector_color = ['b','r']
 b.add_vectors([np.cos(theta), 0, np.sin(theta)])
 b.show()
 # b.make_sphere()
-path = 'C:\\Users\\nguyen89\Google Drive\Research\Illustration\Thesis\Chapter 2\Rabi4.pdf'
-plt.savefig(path, dpi=300)
+# path = 'C:\\Users\\nguyen89\Google Drive\Research\Illustration\Thesis\Chapter 2\Rabi4.pdf'
+# plt.savefig(path, dpi=300)
 plt.show()
 
 # pop_a_0, pop_a_1 = tls_analytical(wr,wa,g,1,0,time)

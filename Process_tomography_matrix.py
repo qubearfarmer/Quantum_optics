@@ -15,7 +15,7 @@ gates = [['C-NOT', cnot()],
          ['Toffoli', toffoli()],
          ['Fredkin', fredkin()],
          ['Xp', sigmax()],
-         ['X2p', rx(phi=np.pi/2)]]
+         ['Z2p', rz(phi=np.pi/2)]]
 
 def plt_qpt_gate(gate, figsize=(8,6)):
 
@@ -32,7 +32,8 @@ def plt_qpt_gate(gate, figsize=(8,6)):
     op_basis = [[qeye(2), sigmax(), sigmay(), sigmaz()] for i in range(N)]
 
     # labels for operator basis
-    op_label = [["$i$", "$x$", "$y$", "$z$"] for i in range(N)]
+    op_label = [['',"$I$", "$X$", "$Y$", "$Z$"] for i in range(N)]
+    print(op_label)
 
     # calculate the chi matrix
     chi = qpt(U_rho, op_basis)
@@ -44,5 +45,6 @@ def plt_qpt_gate(gate, figsize=(8,6)):
 
     return fig, ax
 
-plt_qpt_gate(gates[-1])
+plt_qpt_gate(gates[4])
+
 plt.show()
