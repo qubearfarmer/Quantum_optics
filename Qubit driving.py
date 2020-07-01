@@ -1,24 +1,44 @@
-# Project: Quantum tomography
-# author: Long Nguyen
-# Date: 12-1-2019
 import numpy as np
-import matplotlib.pyplot as plt
-import scipy.fftpack
+from matplotlib import pyplot as plt
+from qutip import*
 
-# Number of samplepoints
-# N = 600
-# # sample spacing
-# T = 1.0 / 800.0
-# x = np.linspace(0.0, N*T, N)
-# y = np.sin(50.0 * 2.0*np.pi*x) + 0.5*np.sin(80.0 * 2.0*np.pi*x)
-# yf = scipy.fftpack.fft(y)
-# xf = np.linspace(0.0, 1.0/(2.0*T), N/2)
-#
-# fig, ax = plt.subplots()
-# ax.plot(xf, 2.0/N * np.abs(yf[:N//2]))
+def qubit_integrate(epsilon, delta, g1, g2, solver):
+    H = epsilon / 2.0 * sigmaz() + delta / 2.0 * sigmax()
 
-t = np.linspace(0,100,1001)
-x = np.cos(t)
-y = np.sin(t)
-plt.plot(t,x , t, y)
+    # collapse operators
+    c_ops = []
+
+    if g1 > 0.0:
+        c_ops.append(np.sqrt(g1) * sigmam())
+
+    if g2 > 0.0:
+        c_ops.append(np.sqrt(g2) * sigmaz())
+
+    e_ops = [sigmax(), sigmay(), sigmaz()]
+
+    if solver == "me":
+        output = mesolve(H, psi0, tlist, c_ops, e_ops)
+    elif solver == "es":
+        output = essolve(H, psi0, tlist, c_ops, e_ops)
+    elif solver == "mc":
+        ntraj = 250
+        output = mcsolve(H, psi0, tlist, ntraj, c_ops, [sigmax(), sigmay(), sigmaz()])
+    else:
+        raise ValueError("unknown solver")
+
+    return output.expect[0], output.expect[1], output.expect[2]
+
+epsilon = 0.0 * 2 * np.pi   # cavity frequency
+delta   = 0.0 * 2 * np.pi   # atom frequency
+g2 = 0.0
+g1 = 1
+
+# intial state
+psi0 = basis(2,0)
+
+tlist = np.linspace(0,5,200)
+
+sx1, sy1, sz1 = qubit_integrate(epsilon, delta, g1, g2, "me")
+plt.plot(tlist , np.real(sz1))
+
 plt.show()
