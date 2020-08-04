@@ -55,11 +55,11 @@ def dress_state(wa, wr, g):
 
 b = Bloch()
 wa = 10
-wr = 10
+wr = 2
 delta = wa - wr
 g = 2
 theta = np.arctan(delta/g)
-gamma1 = 0.1
+gamma1 = 0.0
 psi0 = basis(2,0)
 time = np.linspace(0,10,1000)
 sx, sy, sz = qubit_Rabi(wr, wa, psi0, g, gamma1, time, "me")

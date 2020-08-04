@@ -1,6 +1,9 @@
 from qutip import*
 import numpy as np
-
+from matplotlib import pyplot as plt
+state = (basis(2,0) + 1j*basis(2,1))/np.sqrt(2)
+matrix_histogram_complex(ket2dm(state))
+plt.show()
 
 
 sI = np.array([[1,0],[0,1]])
