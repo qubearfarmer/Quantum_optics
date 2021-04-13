@@ -32,8 +32,8 @@ bSphere.set_label_convention('01')
 bSphere.sphere_color = '#FFFFFF'
 bSphere.make_sphere()
 #
-path = 'C:\\Users\\nguyen89\Google Drive\Research\Illustration\Thesis\Chapter 2\BlochSphere1.pdf'
-plt.savefig(path, dpi=300)
+# path = 'C:\\Users\\nguyen89\Google Drive\Research\Illustration\Thesis\Chapter 2\BlochSphere1.pdf'
+# plt.savefig(path, dpi=300)
 
 ##################################################################################################
 # theta = np.pi/3
@@ -60,7 +60,7 @@ plt.savefig(path, dpi=300)
 # bSphere.make_sphere()
 
 
-# path = 'C:\\Users\\nguyen89\Google Drive\Research\Illustration\Thesis\Chapter 2\BlochSphere4.pdf'
-# plt.savefig(path, dpi=300)
+path = 'C:\\Users\\nguyen89\Google Drive\Research\Illustration\Thesis\Chapter 2\BlochSphere4.pdf'
+plt.savefig(path, dpi=300)
 
 plt.show()
